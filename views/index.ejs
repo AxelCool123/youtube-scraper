@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Search Scraper</title>
+</head>
+<body>
+  <h1>YouTube Search Scraper</h1>
+
+  <!-- Search form -->
+  <form action="/search" method="get">
+    <label for="query">Search for videos: </label>
+    <input type="text" id="query" name="q" placeholder="Enter search query" value="<%= query %>" required />
+    <button type="submit">Search</button>
+  </form>
+
+  <!-- If search results exist, display them -->
+  <% if (titles && titles.length > 0) { %>
+    <h2>Search Results for "<%= query %>":</h2>
+    <ul>
+      <% titles.forEach(function(video) { %>
+        <li>
+          <a href="<%= video.link %>" target="_blank"><%= video.title %></a>
+          <!-- Download link for the video -->
+          <a href="/download?url=<%= video.link %>" target="_blank">Download</a>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <% if (query && query.length > 0) { %>
+      <p>No results found for "<%= query %>".</p>
+    <% } %>
+  <% } %>
+</body>
+</html>

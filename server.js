@@ -26,8 +26,7 @@ app.get("/search", async (req, res) => {
     await page.goto(`https://www.youtube.com/results?search_query=${query}`, {
       waitUntil: "domcontentloaded",
     });
-
-    // Wait for the page to load the video thumbnails
+    
     await page.waitForSelector("div#contents");
 
     // Extract the titles and links of the videos
@@ -40,7 +39,6 @@ app.get("/search", async (req, res) => {
       }));
     });
 
-    // Close the browser
     await browser.close();
 
     // Render the search results using EJS
